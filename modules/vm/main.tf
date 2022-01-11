@@ -8,14 +8,9 @@ resource "azurerm_linux_virtual_machine_scale_set" "consul_cluster" {
   sku                 = var.instance_type
   source_image_id     = var.user_supplied_source_image_id
   upgrade_mode        = var.upgrade_mode
+  user_data           = var.user_data
   zone_balance        = var.zones == null ? false : true
   zones               = var.zones
-
-  # user_data = var.user_data
-  # Actual "userData" support is pending in Terraform
-  # https://github.com/terraform-providers/terraform-provider-azurerm/issues/11846
-  # Fine to just use with the legacy custom_data API instead
-  custom_data = var.user_data
 
   additional_capabilities {
     ultra_ssd_enabled = var.ultra_ssd_enabled
